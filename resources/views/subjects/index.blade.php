@@ -39,7 +39,7 @@
                                 {{ $sb->code }}
                             </span>
                         </td>
-                        <td style="font-weight: 700; color: #ffffff;">{{ $sb->name }}</td>
+                        <td style="font-weight: 700; color: var(--title-color);">{{ $sb->name }}</td>
                         <td>
                             <span style="background: rgba(139, 92, 246, 0.15); color: #c084fc; font-weight: 600; padding: 3px 8px; border-radius: 6px; font-size: 11px;">
                                 {{ $sb->category }}
