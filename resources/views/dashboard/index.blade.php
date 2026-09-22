@@ -120,7 +120,7 @@
 
     .ai-banner p {
         font-size: 13.5px;
-        color: #e2e8f0;
+        color: #e2e8f0 !important;
         max-width: 820px;
         line-height: 1.5;
     }
