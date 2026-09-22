@@ -18,6 +18,9 @@ use App\Http\Controllers\SettingController;
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+// Kelola Kelas
+Route::resource('classes', \App\Http\Controllers\SchoolClassController::class)->except(['create', 'show', 'edit']);
+
 // Master Data Siswa
 Route::get('students/export', [StudentController::class, 'export'])->name('students.export');
 Route::get('students/template', [StudentController::class, 'template'])->name('students.template');
