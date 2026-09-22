@@ -110,15 +110,15 @@
         margin-bottom: 12px;
     }
 
-    .ai-banner h2 {
+    .ai-banner h2, .content-area .ai-banner h2 {
         font-size: 22px;
         font-weight: 800;
-        color: #ffffff;
+        color: #ffffff !important;
         margin-bottom: 8px;
         letter-spacing: -0.3px;
     }
 
-    .ai-banner p {
+    .ai-banner p, .content-area .ai-banner p, .content-area .ai-banner h2 + p {
         font-size: 13.5px;
         color: #e2e8f0 !important;
         max-width: 820px;
