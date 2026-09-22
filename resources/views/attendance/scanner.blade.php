@@ -133,7 +133,7 @@
                     @forelse($recentScans as $sc)
                         <tr>
                             <td style="font-weight: 700; color: #60a5fa;">{{ $sc->check_in_time }}</td>
-                            <td style="font-weight: 700; color: #fff;">{{ $sc->student->name }}</td>
+                            <td style="font-weight: 700; color: var(--title-color);">{{ $sc->student->name }}</td>
                             <td>
                                 <span style="background: rgba(58, 134, 255, 0.15); color: #38bdf8; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">
                                     {{ $sc->student->schoolClass->name }}
@@ -214,7 +214,7 @@
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td style="font-weight: 700; color: #60a5fa;">${data.student.time}</td>
-                    <td style="font-weight: 700; color: #fff;">${data.student.name}</td>
+                    <td style="font-weight: 700; color: var(--title-color);">${data.student.name}</td>
                     <td><span style="background: rgba(58, 134, 255, 0.15); color: #38bdf8; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">${data.student.class}</span></td>
                     <td><span style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">Hadir</span></td>
                 `;

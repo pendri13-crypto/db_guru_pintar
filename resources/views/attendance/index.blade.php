@@ -88,7 +88,7 @@
                         <tr>
                             <td style="color: var(--text-dim);">{{ $idx + 1 }}</td>
                             <td style="font-weight: 600; color: #60a5fa;">{{ $st->nisn }}</td>
-                            <td style="font-weight: 700; color: #fff;">{{ $st->name }}</td>
+                            <td style="font-weight: 700; color: var(--title-color);">{{ $st->name }}</td>
                             <td>
                                 <span style="font-weight: 600; color: {{ $st->gender == 'L' ? '#38bdf8' : '#f472b6' }};">
                                     {{ $st->gender }}

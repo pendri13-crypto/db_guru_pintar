@@ -101,7 +101,7 @@
                         <tr id="row_{{ $st->id }}">
                             <td style="color: var(--text-dim);">{{ $idx + 1 }}</td>
                             <td>
-                                <div style="font-weight: 700; color: #fff;">{{ $st->name }}</div>
+                                <div style="font-weight: 700; color: var(--title-color);">{{ $st->name }}</div>
                                 <div style="font-size: 11px; color: #60a5fa;">{{ $st->nisn }}</div>
                             </td>
                             <td>
