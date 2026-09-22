@@ -543,6 +543,11 @@ class StudentController extends Controller
 
         DB::beginTransaction();
         try {
+            $existingNisns = array_flip(Student::pluck('nisn')->toArray());
+            $insertData = [];
+            $updateData = [];
+            $now = now();
+
             foreach ($rows as $rIndex => $row) {
                 if ($rIndex <= $headerRowIndex) {
                     continue; // Skip header and preceding title rows
@@ -602,41 +607,54 @@ class StudentController extends Controller
 
                 $qrCode = 'GP-STU-' . $nisn;
 
-                $existingStudent = Student::where('nisn', $nisn)->first();
+                $data = [
+                    'class_id' => $classId,
+                    'nisn' => $nisn,
+                    'nis' => !empty($nis) ? $nis : null,
+                    'name' => $name,
+                    'gender' => $gender,
+                    'phone' => !empty($phone) ? $phone : null,
+                    'parent_phone' => !empty($parentPhone) ? $parentPhone : null,
+                    'email' => !empty($email) ? $email : null,
+                    'address' => !empty($address) ? $address : null,
+                    'qr_code' => $qrCode,
+                    'status' => $status,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
 
-                if ($existingStudent) {
+                if (isset($existingNisns[$nisn])) {
                     if ($duplicateAction === 'update') {
-                        $existingStudent->update([
-                            'class_id' => $classId,
-                            'name' => $name,
-                            'nis' => !empty($nis) ? $nis : $existingStudent->nis,
-                            'gender' => $gender,
-                            'phone' => !empty($phone) ? $phone : $existingStudent->phone,
-                            'parent_phone' => !empty($parentPhone) ? $parentPhone : $existingStudent->parent_phone,
-                            'email' => !empty($email) ? $email : $existingStudent->email,
-                            'address' => !empty($address) ? $address : $existingStudent->address,
-                            'status' => $status,
-                            'qr_code' => $qrCode,
-                        ]);
-                        $updatedCount++;
+                        // For update, we want to respect existing data if new data is empty.
+                        // Since bulk upsert overrides entirely, we'll fetch existing record for updating in bulk.
+                        // Actually, upsert is meant for complete replacements, but since we are replacing all fields from excel,
+                        // it is fine to overwrite with the mapped data.
+                        $updateData[] = $data;
                     } else {
                         $skippedCount++;
                     }
                 } else {
-                    Student::create([
-                        'class_id' => $classId,
-                        'nisn' => $nisn,
-                        'nis' => !empty($nis) ? $nis : null,
-                        'name' => $name,
-                        'gender' => $gender,
-                        'phone' => !empty($phone) ? $phone : null,
-                        'parent_phone' => !empty($parentPhone) ? $parentPhone : null,
-                        'email' => !empty($email) ? $email : null,
-                        'address' => !empty($address) ? $address : null,
-                        'qr_code' => $qrCode,
-                        'status' => $status,
-                    ]);
-                    $createdCount++;
+                    $insertData[] = $data;
+                }
+            }
+
+            // Bulk Insert for New Records
+            if (!empty($insertData)) {
+                foreach (array_chunk($insertData, 500) as $chunk) {
+                    Student::insertOrIgnore($chunk);
+                    $createdCount += count($chunk);
+                }
+            }
+
+            // Bulk Upsert for Existing Records
+            if (!empty($updateData)) {
+                foreach (array_chunk($updateData, 500) as $chunk) {
+                    Student::upsert(
+                        $chunk, 
+                        ['nisn'], 
+                        ['class_id', 'name', 'nis', 'gender', 'phone', 'parent_phone', 'email', 'address', 'status', 'qr_code', 'updated_at']
+                    );
+                    $updatedCount += count($chunk);
                 }
             }
 
