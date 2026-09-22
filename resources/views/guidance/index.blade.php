@@ -57,7 +57,7 @@
                     <tr>
                         <td style="color: var(--text-dim); font-size: 12px;">{{ $g->date }}</td>
                         <td>
-                            <div style="font-weight: 700; color: #fff;">{{ $g->student->name }}</div>
+                            <div style="font-weight: 700; color: var(--title-color);">{{ $g->student->name }}</div>
                             <span style="background: rgba(58, 134, 255, 0.15); color: #60a5fa; font-weight: 700; padding: 2px 6px; border-radius: 4px; font-size: 10px;">
                                 Kelas {{ $g->student->schoolClass->name }}
                             </span>
@@ -76,7 +76,7 @@
                             </span>
                         </td>
                         <td style="max-width: 250px;">
-                            <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">{{ $g->title }}</div>
+                            <div style="font-weight: 700; color: var(--title-color); margin-bottom: 2px;">{{ $g->title }}</div>
                             <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.4;">{{ $g->description }}</div>
                         </td>
                         <td style="max-width: 200px; font-size: 12px; color: #e2e8f0;">

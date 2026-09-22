@@ -22,7 +22,7 @@ class GuidanceController extends Controller
         }
 
         $guidances = $query->orderBy('date', 'desc')->paginate(10)->withQueryString();
-        $students = Student::orderBy('name')->get();
+        $students = Student::with('schoolClass')->orderBy('name')->get();
 
         $stats = [
             'total' => Guidance::count(),
