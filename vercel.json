@@ -22,7 +22,8 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "false",
+        "APP_DEBUG": "true",
+        "APP_KEY": "base64:UkxmtmSBvBH9QgPzCgj55p62vbRQ16AbTJOPa+osSeI=",
         "APP_URL": "https://db-guru-pintar.vercel.app",
         "CACHE_STORE": "array",
         "SESSION_DRIVER": "cookie",
