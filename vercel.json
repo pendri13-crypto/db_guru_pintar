@@ -31,6 +31,13 @@
         "LOG_CHANNEL": "stderr",
         "APP_MAINTENANCE_DRIVER": "file",
         "BROADCAST_CONNECTION": "log",
-        "FILESYSTEM_DISK": "local"
+        "FILESYSTEM_DISK": "local",
+        "DB_CONNECTION": "mysql",
+        "DB_HOST": "gateway01.ap-northeast-1.prod.aws.tidbcloud.com",
+        "DB_PORT": "4000",
+        "DB_DATABASE": "test",
+        "DB_USERNAME": "29kYqjQRkkQMXU8.root",
+        "DB_PASSWORD": "0mmMHSFV5Onj2Sib",
+        "MYSQL_ATTR_SSL_CA": "/etc/pki/tls/certs/ca-bundle.crt"
     }
 }
