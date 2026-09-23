@@ -37,12 +37,12 @@
                 <th width="85">NISN</th>
                 <th>Nama Peserta Didik</th>
                 <th width="30">JK</th>
-                <th width="50">Tugas 1 (15%)</th>
-                <th width="50">Tugas 2 (15%)</th>
-                <th width="50">Formatif (20%)</th>
-                <th width="50">Sumatif (20%)</th>
-                <th width="50">UTS (15%)</th>
-                <th width="50">UAS (15%)</th>
+                <th width="40">UH1</th>
+                <th width="40">UH2</th>
+                <th width="40">TH1</th>
+                <th width="40">TH2</th>
+                <th width="50">PTS (10%)</th>
+                <th width="60">Sumatif (30%)</th>
                 <th width="55">Nilai Akhir</th>
                 <th width="40">Predikat</th>
                 <th>Deskripsi Capaian Rapor</th>
@@ -58,12 +58,12 @@
                     <td>{{ $st->nisn }}</td>
                     <td class="text-left"><strong>{{ $st->name }}</strong></td>
                     <td>{{ $st->gender }}</td>
-                    <td>{{ $g->tugas_1 ?? '-' }}</td>
-                    <td>{{ $g->tugas_2 ?? '-' }}</td>
-                    <td>{{ $g->formatif ?? '-' }}</td>
-                    <td>{{ $g->sumatif ?? '-' }}</td>
-                    <td>{{ $g->uts ?? '-' }}</td>
-                    <td>{{ $g->uas ?? '-' }}</td>
+                    <td>{{ $g->uh1 ?? '-' }}</td>
+                    <td>{{ $g->uh2 ?? '-' }}</td>
+                    <td>{{ $g->th1 ?? '-' }}</td>
+                    <td>{{ $g->th2 ?? '-' }}</td>
+                    <td>{{ $g->pts ?? '-' }}</td>
+                    <td>{{ $g->sumatif_akhir ?? '-' }}</td>
                     <td><strong>{{ $g->final_score ?? '-' }}</strong></td>
                     <td><strong>{{ $g->predicate ?? '-' }}</strong></td>
                     <td class="text-left" style="font-size: 8.5pt;">{{ $g->notes ?? '-' }}</td>

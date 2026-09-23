@@ -64,19 +64,22 @@ class GradeController extends Controller
         $semester = $request->semester;
 
         foreach ($request->grades as $studentId => $row) {
-            $tugas1 = isset($row['tugas_1']) && $row['tugas_1'] !== '' ? floatval($row['tugas_1']) : null;
-            $tugas2 = isset($row['tugas_2']) && $row['tugas_2'] !== '' ? floatval($row['tugas_2']) : null;
-            $formatif = isset($row['formatif']) && $row['formatif'] !== '' ? floatval($row['formatif']) : null;
-            $sumatif = isset($row['sumatif']) && $row['sumatif'] !== '' ? floatval($row['sumatif']) : null;
-            $uts = isset($row['uts']) && $row['uts'] !== '' ? floatval($row['uts']) : null;
-            $uas = isset($row['uas']) && $row['uas'] !== '' ? floatval($row['uas']) : null;
+            $uh1 = isset($row['uh1']) && $row['uh1'] !== '' ? floatval($row['uh1']) : null;
+            $uh2 = isset($row['uh2']) && $row['uh2'] !== '' ? floatval($row['uh2']) : null;
+            $th1 = isset($row['th1']) && $row['th1'] !== '' ? floatval($row['th1']) : null;
+            $th2 = isset($row['th2']) && $row['th2'] !== '' ? floatval($row['th2']) : null;
+            $pts = isset($row['pts']) && $row['pts'] !== '' ? floatval($row['pts']) : null;
+            $sumatifAkhir = isset($row['sumatif_akhir']) && $row['sumatif_akhir'] !== '' ? floatval($row['sumatif_akhir']) : null;
 
-            $vals = array_filter([$tugas1, $tugas2, $formatif, $sumatif, $uts, $uas], fn($v) => !is_null($v));
+            $vals = array_filter([$uh1, $uh2, $th1, $th2, $pts, $sumatifAkhir], fn($v) => !is_null($v));
             $final = null;
             $predicate = null;
 
             if (count($vals) > 0) {
-                $final = round((($tugas1 ?? 0) * 0.15) + (($tugas2 ?? 0) * 0.15) + (($formatif ?? 0) * 0.20) + (($sumatif ?? 0) * 0.20) + (($uts ?? 0) * 0.15) + (($uas ?? 0) * 0.15), 1);
+                $harianVals = array_filter([$uh1, $uh2, $th1, $th2], fn($v) => !is_null($v));
+                $rataHarian = count($harianVals) > 0 ? array_sum($harianVals) / count($harianVals) : 0;
+                
+                $final = round(($rataHarian * 0.60) + (($pts ?? 0) * 0.10) + (($sumatifAkhir ?? 0) * 0.30), 1);
                 if ($final >= 88) $predicate = 'A';
                 elseif ($final >= 75) $predicate = 'B';
                 elseif ($final >= 60) $predicate = 'C';
@@ -91,12 +94,12 @@ class GradeController extends Controller
                 ],
                 [
                     'class_id' => $classId,
-                    'tugas_1' => $tugas1,
-                    'tugas_2' => $tugas2,
-                    'formatif' => $formatif,
-                    'sumatif' => $sumatif,
-                    'uts' => $uts,
-                    'uas' => $uas,
+                    'uh1' => $uh1,
+                    'uh2' => $uh2,
+                    'th1' => $th1,
+                    'th2' => $th2,
+                    'pts' => $pts,
+                    'sumatif_akhir' => $sumatifAkhir,
                     'final_score' => $final,
                     'predicate' => $predicate,
                     'notes' => $row['notes'] ?? null,

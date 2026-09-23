@@ -164,7 +164,7 @@ return new class extends Migration
             $table->id();
             $table->string('school_name')->default('SMP NEGERI UNGGULAN INDONESIA');
             $table->string('npsn')->default('20109988');
-            $table->text('address')->default('Jl. Pendidikan Nasional No. 45, Jakarta');
+            $table->text('address')->nullable();
             $table->string('principal_name')->default('Dr. H. Ahmad Dahlan, M.Pd');
             $table->string('principal_nip')->default('19750512 199903 1 002');
             $table->string('teacher_name')->default('Budi Santoso, S.Kom., M.Kom');

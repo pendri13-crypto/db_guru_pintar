@@ -82,12 +82,12 @@
                     <tr>
                         <th style="width: 40px;">No</th>
                         <th>NISN & Nama Siswa</th>
-                        <th style="width: 80px;">Tugas 1 (15%)</th>
-                        <th style="width: 80px;">Tugas 2 (15%)</th>
-                        <th style="width: 80px;">Formatif (20%)</th>
-                        <th style="width: 80px;">Sumatif (20%)</th>
-                        <th style="width: 80px;">UTS (15%)</th>
-                        <th style="width: 80px;">UAS (15%)</th>
+                        <th style="width: 60px;">UH1</th>
+                        <th style="width: 60px;">UH2</th>
+                        <th style="width: 60px;">TH1</th>
+                        <th style="width: 60px;">TH2</th>
+                        <th style="width: 80px;">PTS (10%)</th>
+                        <th style="width: 90px;">Sumatif Akhir (30%)</th>
                         <th style="width: 80px; text-align: center;">Nilai Akhir</th>
                         <th style="width: 60px; text-align: center;">Predikat</th>
                         <th>Catatan Capaian Belajar</th>
@@ -105,22 +105,22 @@
                                 <div style="font-size: 11px; color: #60a5fa;">{{ $st->nisn }}</div>
                             </td>
                             <td>
-                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][tugas_1]" value="{{ $g->tugas_1 ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
+                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][uh1]" value="{{ $g->uh1 ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
                             </td>
                             <td>
-                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][tugas_2]" value="{{ $g->tugas_2 ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
+                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][uh2]" value="{{ $g->uh2 ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
                             </td>
                             <td>
-                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][formatif]" value="{{ $g->formatif ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
+                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][th1]" value="{{ $g->th1 ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
                             </td>
                             <td>
-                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][sumatif]" value="{{ $g->sumatif ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
+                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][th2]" value="{{ $g->th2 ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
                             </td>
                             <td>
-                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][uts]" value="{{ $g->uts ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
+                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][pts]" value="{{ $g->pts ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
                             </td>
                             <td>
-                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][uas]" value="{{ $g->uas ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
+                                <input type="number" step="0.1" min="0" max="100" name="grades[{{ $st->id }}][sumatif_akhir]" value="{{ $g->sumatif_akhir ?? '' }}" class="form-control score-input" data-student="{{ $st->id }}" style="padding: 6px; text-align: center;">
                             </td>
                             <td style="text-align: center;">
                                 <span id="final_{{ $st->id }}" style="font-size: 14px; font-weight: 800; color: #f59e0b;">
@@ -166,14 +166,17 @@
             const row = document.getElementById('row_' + stuId);
             const inputs = row.querySelectorAll('.score-input');
 
-            const t1 = parseFloat(inputs[0].value) || 0;
-            const t2 = parseFloat(inputs[1].value) || 0;
-            const f  = parseFloat(inputs[2].value) || 0;
-            const s  = parseFloat(inputs[3].value) || 0;
-            const uts = parseFloat(inputs[4].value) || 0;
-            const uas = parseFloat(inputs[5].value) || 0;
+            const uh1 = parseFloat(inputs[0].value);
+            const uh2 = parseFloat(inputs[1].value);
+            const th1 = parseFloat(inputs[2].value);
+            const th2 = parseFloat(inputs[3].value);
+            const pts = parseFloat(inputs[4].value) || 0;
+            const sa = parseFloat(inputs[5].value) || 0;
 
-            const final = ((t1 * 0.15) + (t2 * 0.15) + (f * 0.20) + (s * 0.20) + (uts * 0.15) + (uas * 0.15)).toFixed(1);
+            const harian = [uh1, uh2, th1, th2].filter(n => !isNaN(n));
+            const rataHarian = harian.length > 0 ? harian.reduce((a, b) => a + b) / harian.length : 0;
+
+            const final = ((rataHarian * 0.60) + (pts * 0.10) + (sa * 0.30)).toFixed(1);
             let pred = 'D';
             if (final >= 88) pred = 'A';
             else if (final >= 75) pred = 'B';

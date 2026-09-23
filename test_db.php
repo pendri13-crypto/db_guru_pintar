@@ -1,0 +1,1 @@
+<?php $pdo = new PDO('mysql:host=gateway01.ap-northeast-1.prod.aws.tidbcloud.com;port=4000;dbname=test', '29kYqjQRkkQMXU8.root', '0mmMHSFV5Onj2Sib', [PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false]); echo 'Connected!'; ?>
