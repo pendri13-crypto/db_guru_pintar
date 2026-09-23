@@ -82,12 +82,12 @@
                     <tr>
                         <th style="width: 40px;">No</th>
                         <th>NISN & Nama Siswa</th>
-                        <th style="width: 60px;">UH1</th>
-                        <th style="width: 60px;">UH2</th>
-                        <th style="width: 60px;">TH1</th>
-                        <th style="width: 60px;">TH2</th>
-                        <th style="width: 80px;">PTS (10%)</th>
-                        <th style="width: 90px;">Sumatif Akhir (30%)</th>
+                        <th style="min-width: 75px;">UH1</th>
+                        <th style="min-width: 75px;">UH2</th>
+                        <th style="min-width: 75px;">TH1</th>
+                        <th style="min-width: 75px;">TH2</th>
+                        <th style="min-width: 85px;">PTS (10%)</th>
+                        <th style="min-width: 100px;">Sumatif Akhir (30%)</th>
                         <th style="width: 80px; text-align: center;">Nilai Akhir</th>
                         <th style="width: 60px; text-align: center;">Predikat</th>
                         <th>Catatan Capaian Belajar</th>
